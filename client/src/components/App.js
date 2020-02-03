@@ -18,12 +18,6 @@ class App extends Component {
     this.setState({ DialogOpen: false });
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps, nextState);
-    console.log(this.props, this.state);
-
-    return false;
-  }
   componentDidMount() {
     this.props.fetchUser();
   }
