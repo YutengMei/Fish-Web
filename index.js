@@ -1,11 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
+const bodyParser = require("body-parser");
 const passport = require("passport");
 const keys = require("./config/keys.js");
 //Since passport.js doesn't export anything, we can just call require(..)
 // to run all the codes.
 require("./models/User");
+require("./models/Spot");
+require("./models/Comment");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
@@ -27,12 +30,23 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+
+/**
+   Express Middlewares
+**/
 // These two middlewares tell passport to use cookie to handle authentication.
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Parse incoming request into json format
+app.use(bodyParser.json());
+
 const authRoutes = require("./routes/authRoutes");
+const spotRoutes = require("./routes/spotRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 authRoutes(app);
+spotRoutes(app);
+commentRoutes(app);
 
 // Handling different routing when the application is run in production
 if (process.env.NODE_ENV === "production") {

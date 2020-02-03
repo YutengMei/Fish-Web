@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -16,6 +17,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
+import PinDropIcon from "@material-ui/icons/PinDrop";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
@@ -98,14 +100,28 @@ class Header extends Component {
         {this.renderProfile()}
         <Divider />
         <List>
-          {["Tide Chart", "Find Spots"].map((text, index) => (
-            <ListItem button key={text}>
+          <Link to="/fishmap" style={{ textDecoration: "none" }}>
+            <ListItem button key="Find Spots">
               <ListItemIcon>
-                {index % 2 === 0 ? <TimelineIcon /> : <NotListedLocationIcon />}
+                <NotListedLocationIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Find Spots" />
             </ListItem>
-          ))}
+          </Link>
+
+          <ListItem button key="Tide Chart">
+            <ListItemIcon>
+              <TimelineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Tide Chart" />
+          </ListItem>
+
+          <ListItem button key="Add Spot" onClick={this.props.handleDialogOpen}>
+            <ListItemIcon>
+              <PinDropIcon />
+            </ListItemIcon>
+            <ListItemText primary="Discovered a Spot" />
+          </ListItem>
         </List>
         <Divider />
       </div>
@@ -114,8 +130,8 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
-        <AppBar position="absolute">
+      <React.Fragment>
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               edge="start"
@@ -138,13 +154,15 @@ class Header extends Component {
         </AppBar>
 
         <SwipeableDrawer
+          stype={{ width: "0px" }}
           open={this.state.open}
           onClose={this.toggleDrawer(false)}
           onOpen={this.toggleDrawer(true)}
         >
           {this.renderMainList()}
         </SwipeableDrawer>
-      </div>
+        <Toolbar />
+      </React.Fragment>
     );
   }
 }

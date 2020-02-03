@@ -1,19 +1,43 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import Header from "./Header";
 import * as actions from "../actions";
 import { connect } from "react-redux";
+import Header from "./Header";
+import MapShow from "./MapShow";
+import SpotForm from "./spots/SpotForm";
 
 class App extends Component {
+  state = { DialogOpen: false };
+
+  handleDialogOpen = event => {
+    console.log("clicked");
+    this.setState({ DialogOpen: true });
+  };
+
+  handleDialogClose = () => {
+    this.setState({ DialogOpen: false });
+  };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState);
+    console.log(this.props, this.state);
+
+    return false;
+  }
   componentDidMount() {
     this.props.fetchUser();
   }
   render() {
     return (
-      <div className="container">
+      <div>
         <BrowserRouter>
           <div>
-            <Header />
+            <Header handleDialogOpen={this.handleDialogOpen} />
+            <SpotForm
+              open={this.state.DialogOpen}
+              onRequestClose={this.handleDialogClose}
+            />
+            <Route path="/fishmap" exact component={MapShow} />
           </div>
         </BrowserRouter>
       </div>
