@@ -60,10 +60,13 @@ class MapShow extends Component {
 
   componentDidMount() {
     this.props.fetchSpots();
-    this.fetchGeolocation();
+    if (this.state.selectedSpot === null) {
+      this.fetchGeolocation();
+    }
   }
 
   fetchGeolocation = () => {
+    console.log("fetchGeolocation() called");
     window.navigator.geolocation.getCurrentPosition(
       position => {
         console.log("GOT CURRENT LOCATION", position);
@@ -78,6 +81,12 @@ class MapShow extends Component {
 
   handleMarkerClick = selectedSpot => {
     this.setState({ selectedSpot: selectedSpot });
+    if (selectedSpot !== null) {
+      this.setState({
+        lat: selectedSpot.latitude,
+        lng: selectedSpot.longtitude
+      });
+    }
   };
 
   render() {
