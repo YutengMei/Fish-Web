@@ -3,13 +3,15 @@ const AWS = require("aws-sdk"); // Requiring AWS SDK.
 
 // Configuring AWS
 AWS.config = new AWS.Config({
-  accessKeyId: process.env.S3_KEY, // stored in the .env file
-  secretAccessKey: process.env.S3_SECRET, // stored in the .env file
-  region: process.env.BUCKET_REGION // This refers to your bucket configuration.
+  accessKeyId: "AKIAUCIJN2SM5QACVBGN", // stored in the .env file
+  secretAccessKey: "0Ow2flTgSDsHkTkAy1Ty+9pkHLrJxqmZQSPylE57", // stored in the .env file
+  region: "us-east-2" // This refers to your bucket configuration.
 });
 
 // Creating a S3 instance
-const s3 = new AWS.S3();
+const s3 = new AWS.S3({
+  signatureVersion: "v4"
+});
 
 // Retrieving the bucket name from env variable
 const Bucket = process.env.BUCKET_NAME;

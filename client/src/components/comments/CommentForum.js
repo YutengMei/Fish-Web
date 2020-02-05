@@ -5,8 +5,20 @@ import { fetchComments, postComment } from "../../actions";
 import TextArea from "./TextArea";
 import axios from "axios";
 import _ from "lodash";
+import S3FileUpload from "react-s3";
+
+//Optional Import
+import { uploadFile } from "react-s3";
 
 import CommentField from "./CommentField";
+
+const config = {
+  bucketName: "fishweb",
+  dirName: "photos" /* optional */,
+  region: "us-east-2",
+  accessKeyId: "AKIAUCIJN2SM5QACVBGN",
+  secretAccessKey: "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"
+};
 
 class CommentForum extends Component {
   state = { message: "" };
@@ -39,53 +51,64 @@ class CommentForum extends Component {
     });
   };
 
-  getImage = e => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      this.setState({ file });
-    }
-  };
+  // getImage = e => {
+  //   const files = e.target.files;
+  //   if (files && files.length > 0) {
+  //     const file = files[0];
+  //     this.setState({ file });
+  //   }
+  // };
 
-  uploadFile = e => {
-    console.log("uploadFile called");
-    e.preventDefault();
-    const { file } = this.state;
-    this.setState({ message: "Uploading..." });
-    const contentType = file.type; // eg. image/jpeg or image/svg+xml
+  // uploadFile = e => {
+  //   console.log("uploadFile called");
+  //   e.preventDefault();
+  //   const { file } = this.state;
+  //   this.setState({ message: "Uploading..." });
+  //   const contentType = file.type; // eg. image/jpeg or image/svg+xml
+  //
+  //   const generatePutUrl = "/api/putImageUrl";
+  //   const options = {
+  //     params: {
+  //       Key: file.name,
+  //       ContentType: contentType
+  //     },
+  //     headers: {
+  //       "Content-Type": contentType
+  //     }
+  //   };
+  //   console.log("Before getting signed url (type):", contentType);
+  //   axios.get(generatePutUrl, options).then(res => {
+  //     const {
+  //       data: { putURL }
+  //     } = res;
+  //     console.log("This is the puturl we fetch", putURL);
+  //     console.log("file to be put", file);
+  //     axios
+  //       .put(putURL, file, options)
+  //       .then(res => {
+  //         this.setState({ message: "Upload Successful" });
+  //         setTimeout(() => {
+  //           this.setState({ message: "" });
+  //           document.querySelector("#upload-image").value = "";
+  //         }, 2000);
+  //       })
+  //       .catch(err => {
+  //         this.setState({ message: "Sorry, something went wrong" });
+  //         console.log("err", err);
+  //       });
+  //   });
+  // };
 
-    const generatePutUrl = "/api/putImageUrl";
-    const options = {
-      params: {
-        Key: file.name,
-        ContentType: contentType
-      },
-      headers: {
-        "Content-Type": contentType
-      }
-    };
-
-    axios.get(generatePutUrl, options).then(res => {
-      const {
-        data: { putURL }
-      } = res;
-      console.log("This is the puturl we fetch", putURL);
-      console.log("file to be put", file);
-      axios
-        .put(putURL, file, options)
-        .then(res => {
-          this.setState({ message: "Upload Successful" });
-          setTimeout(() => {
-            this.setState({ message: "" });
-            document.querySelector("#upload-image").value = "";
-          }, 2000);
-        })
-        .catch(err => {
-          this.setState({ message: "Sorry, something went wrong" });
-          console.log("err", err);
-        });
-    });
-  };
+  upload(e) {
+    console.log(e.target.files[0]);
+    S3FileUpload.uploadFile(e.target.files[0], config)
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     console.log("comment forum rerender()");
@@ -99,12 +122,8 @@ class CommentForum extends Component {
           id="upload-image"
           type="file"
           accept="image/*"
-          onChange={this.getImage}
+          onChange={this.upload}
         />
-        <p>{this.state.message}</p>
-        <form onSubmit={this.uploadFile}>
-          <button id="file-upload-button">Upload</button>
-        </form>
       </div>
     );
   }
