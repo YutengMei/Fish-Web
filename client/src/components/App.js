@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 import Header from "./Header";
 import MapShow from "./MapShow";
 import SpotForm from "./spots/SpotForm";
+import CommentForum from "./comments/CommentForum";
 
 class App extends Component {
-  state = { DialogOpen: false };
+  state = { DialogOpen: false, selectedSpotId: null };
 
   handleDialogOpen = event => {
-    console.log("clicked");
     this.setState({ DialogOpen: true });
   };
 
@@ -18,6 +18,10 @@ class App extends Component {
     this.setState({ DialogOpen: false });
   };
 
+  //For testing purposes, need to delete later!
+  openForum = selectedSpotId => {
+    this.setState({ selectedSpotId: selectedSpotId });
+  };
   componentDidMount() {
     this.props.fetchUser();
   }
@@ -27,11 +31,18 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header handleDialogOpen={this.handleDialogOpen} />
+            <CommentForum spotId="5e38ed4a2f01e02f2524c4e0" />
             <SpotForm
               open={this.state.DialogOpen}
               onRequestClose={this.handleDialogClose}
             />
-            <Route path="/fishmap" exact component={MapShow} />
+            {/* <Route path="/fishmap" exact component={MapShow} /> */}
+            <Route
+              path="/fishmap"
+              render={props => (
+                <MapShow {...props} openForum={this.openForum} />
+              )}
+            />
           </div>
         </BrowserRouter>
       </div>

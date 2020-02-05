@@ -9,9 +9,9 @@ import {
   InfoWindow
 } from "react-google-maps";
 import { fetchSpots } from "../actions";
-const {
-  MarkerWithLabel
-} = require("react-google-maps/lib/components/addons/MarkerWithLabel");
+// const {
+//   MarkerWithLabel
+// } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 
 const MyMapComponent = compose(
   withProps({
@@ -81,7 +81,9 @@ class MapShow extends Component {
 
   handleMarkerClick = selectedSpot => {
     this.setState({ selectedSpot: selectedSpot });
+    console.log(selectedSpot);
     if (selectedSpot !== null) {
+      this.props.openForum(selectedSpot._id);
       this.setState({
         lat: selectedSpot.latitude,
         lng: selectedSpot.longtitude
@@ -90,7 +92,6 @@ class MapShow extends Component {
   };
 
   render() {
-    console.log("re-render()", this.state.lat, this.state.lng);
     return (
       <div style={{ width: "98vw", height: "87vh" }}>
         <MyMapComponent

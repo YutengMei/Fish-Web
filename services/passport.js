@@ -5,7 +5,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys.js");
 
-const User = mongoose.model("users");
+const User = mongoose.model("User");
 
 //user : user object just pull out from mongodb
 //done: is callback, first argument: error object; second argument: identifier

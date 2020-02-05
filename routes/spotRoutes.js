@@ -4,6 +4,7 @@ const verifyLogin = require("../middlewares/verifyLogin");
 
 module.exports = app => {
   app.get("/api/fishSpots", async (req, res) => {
+    console.log("------------------------============----------------");
     const spots = await Spot.find({});
     res.send(spots);
   });

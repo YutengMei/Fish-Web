@@ -7,11 +7,11 @@ const commentSchema = new Schema({
     require: true
   },
   spotId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Spot"
   },
   author: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
   imageUrl: {

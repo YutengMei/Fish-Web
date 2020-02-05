@@ -11,7 +11,10 @@ const spotSchema = new Schema({
   fishCatched: {
     type: Number
   },
-  author: { type: Schema.Types.ObjectId, ref: "User" },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
   dateCreated: {
     type: Date
   }

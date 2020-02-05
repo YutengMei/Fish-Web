@@ -4,6 +4,7 @@ const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const keys = require("./config/keys.js");
+const cors = require("cors");
 //Since passport.js doesn't export anything, we can just call require(..)
 // to run all the codes.
 require("./models/User");
@@ -41,12 +42,17 @@ app.use(passport.session());
 // Parse incoming request into json format
 app.use(bodyParser.json());
 
+app.use(express.json());
+app.use(cors());
+
 const authRoutes = require("./routes/authRoutes");
 const spotRoutes = require("./routes/spotRoutes");
 const commentRoutes = require("./routes/commentRoutes");
+const awsRoutes = require("./routes/awsRoutes");
 authRoutes(app);
 spotRoutes(app);
 commentRoutes(app);
+awsRoutes(app);
 
 // Handling different routing when the application is run in production
 if (process.env.NODE_ENV === "production") {

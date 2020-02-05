@@ -53,7 +53,7 @@ class SpotForm extends Component {
       location.longtitude = Number(formValues.longitude);
     } else {
       const fetchCoordinate = await this.checkValidAdress(formValues);
-      console.log("from handleSubmitForm", fetchCoordinate);
+
       if (
         fetchCoordinate.latitude == null ||
         fetchCoordinate.longtitude == null
@@ -91,7 +91,6 @@ class SpotForm extends Component {
     const state = "+" + formValues.state;
 
     const address = street + "," + city + "," + state;
-    console.log(address);
 
     const res = await axios.get(
       "https://maps.googleapis.com/maps/api/geocode/json",
@@ -102,10 +101,9 @@ class SpotForm extends Component {
         }
       }
     );
-    console.log(res.data);
+
     //coordinate: res.data.results[0].geometry.location.lat | lng
     if (res.data.results.length === 0) {
-      console.log("res.data.results.length===0");
       return coordinate;
     }
 
@@ -212,7 +210,7 @@ function validate(values) {
       errors[name] = "You must provide a value";
     }
   });
-  console.log(errors);
+
   //lat: -90.0 to 90.0
   //lng: -180.0 to 180.0.
   _.each(formFields.coordinate, ({ name }) => {
