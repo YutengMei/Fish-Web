@@ -6,6 +6,8 @@ import Header from "./Header";
 import MapShow from "./MapShow";
 import SpotForm from "./spots/SpotForm";
 import CommentForum from "./comments/CommentForum";
+import Weather from "./Weather";
+import SolunarActivity from "./SolunarActivity";
 
 class App extends Component {
   state = { DialogOpen: false, selectedSpotId: null };
@@ -42,6 +44,10 @@ class App extends Component {
               render={props => (
                 <MapShow {...props} openForum={this.openForum} />
               )}
+            />
+            <Route
+              path="/weather"
+              component={Weather}
             />
           </div>
         </BrowserRouter>

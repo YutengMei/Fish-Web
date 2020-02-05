@@ -111,13 +111,15 @@ class Header extends Component {
             </ListItem>
           </Link>
 
-          <ListItem button key="Weather">
-            <ListItemIcon>
-              <CloudIcon />
-            </ListItemIcon>
-            <ListItemText primary="Weather" />
-          </ListItem>
-
+          <Link to="/weather">
+            <ListItem button key="Weather">
+              <ListItemIcon>
+                <CloudIcon />
+              </ListItemIcon>
+              <ListItemText primary="Weather" />
+            </ListItem>
+          </Link>
+          
           <ListItem button key="Solunary Activity">
             <ListItemIcon>
               <Brightness4Icon />
