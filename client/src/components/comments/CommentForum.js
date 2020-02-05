@@ -69,6 +69,8 @@ class CommentForum extends Component {
       const {
         data: { putURL }
       } = res;
+      console.log("This is the puturl we fetch", putURL);
+      console.log("file to be put", file);
       axios
         .put(putURL, file, options)
         .then(res => {

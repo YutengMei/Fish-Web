@@ -40,15 +40,21 @@ function generateGetUrl(Key) {
 
 // PUT URL Generator
 function generatePutUrl(Key, ContentType) {
+  console.log("----------generateputURL cllaed------------");
   return new Promise((resolve, reject) => {
     // Note Bucket is retrieved from the env variable above.
     const params = { Bucket, Key, ContentType };
+    console.log("Bucket:", Bucket);
+    console.log("Key:", Key);
+    console.log("ContentType", ContentType);
     // Note operation in this case is putObject
     s3.getSignedUrl("putObject", params, function(err, url) {
       if (err) {
+        console.log("FKING ERROR");
         reject(err);
       }
       // If there is no errors we can send back the pre-signed PUT URL
+      console.log("NO ERROR");
       resolve(url);
     });
   });
