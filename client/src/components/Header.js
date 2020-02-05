@@ -21,6 +21,8 @@ import PinDropIcon from "@material-ui/icons/PinDrop";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
+import CloudIcon from '@material-ui/icons/Cloud';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 class Header extends Component {
   state = { open: false };
@@ -108,6 +110,20 @@ class Header extends Component {
               <ListItemText primary="Find Spots" />
             </ListItem>
           </Link>
+
+          <ListItem button key="Weather">
+            <ListItemIcon>
+              <CloudIcon />
+            </ListItemIcon>
+            <ListItemText primary="Weather" />
+          </ListItem>
+
+          <ListItem button key="Solunary Activity">
+            <ListItemIcon>
+              <Brightness4Icon />
+            </ListItemIcon>
+            <ListItemText primary="Solunary Activity" />
+          </ListItem>
 
           <ListItem button key="Tide Chart">
             <ListItemIcon>

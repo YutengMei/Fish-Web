@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "engines": {
     "node": "12.14.1",
@@ -31,5 +30,14 @@
     "passport": "^0.4.1",
     "passport-google": "^0.3.0",
     "passport-google-oauth20": "^2.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YutengMei/Fish-Web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YutengMei/Fish-Web/issues"
+  },
+  "homepage": "https://github.com/YutengMei/Fish-Web#readme",
+  "description": ""
 }
