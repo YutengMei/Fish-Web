@@ -5,26 +5,15 @@ import { fetchComments, postComment } from "../../actions";
 import TextArea from "./TextArea";
 import axios from "axios";
 import _ from "lodash";
-import S3FileUpload from "react-s3";
-
-//Optional Import
-import { uploadFile } from "react-s3";
 
 import CommentField from "./CommentField";
-
-const config = {
-  bucketName: "fishweb",
-  dirName: "photos" /* optional */,
-  region: "us-east-2",
-  accessKeyId: "AKIAUCIJN2SM5QACVBGN",
-  secretAccessKey: "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"
-};
 
 class CommentForum extends Component {
   state = { message: "" };
 
   componentDidMount() {
     console.log("commentForum did mounth called");
+    console.log(this.props.spotId);
     if (this.props.spotId !== null) {
       this.props.fetchComments(this.props.spotId);
     }
@@ -51,65 +40,6 @@ class CommentForum extends Component {
     });
   };
 
-  // getImage = e => {
-  //   const files = e.target.files;
-  //   if (files && files.length > 0) {
-  //     const file = files[0];
-  //     this.setState({ file });
-  //   }
-  // };
-
-  // uploadFile = e => {
-  //   console.log("uploadFile called");
-  //   e.preventDefault();
-  //   const { file } = this.state;
-  //   this.setState({ message: "Uploading..." });
-  //   const contentType = file.type; // eg. image/jpeg or image/svg+xml
-  //
-  //   const generatePutUrl = "/api/putImageUrl";
-  //   const options = {
-  //     params: {
-  //       Key: file.name,
-  //       ContentType: contentType
-  //     },
-  //     headers: {
-  //       "Content-Type": contentType
-  //     }
-  //   };
-  //   console.log("Before getting signed url (type):", contentType);
-  //   axios.get(generatePutUrl, options).then(res => {
-  //     const {
-  //       data: { putURL }
-  //     } = res;
-  //     console.log("This is the puturl we fetch", putURL);
-  //     console.log("file to be put", file);
-  //     axios
-  //       .put(putURL, file, options)
-  //       .then(res => {
-  //         this.setState({ message: "Upload Successful" });
-  //         setTimeout(() => {
-  //           this.setState({ message: "" });
-  //           document.querySelector("#upload-image").value = "";
-  //         }, 2000);
-  //       })
-  //       .catch(err => {
-  //         this.setState({ message: "Sorry, something went wrong" });
-  //         console.log("err", err);
-  //       });
-  //   });
-  // };
-
-  upload(e) {
-    console.log(e.target.files[0]);
-    S3FileUpload.uploadFile(e.target.files[0], config)
-      .then(data => {
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
   render() {
     console.log("comment forum rerender()");
     return (
@@ -117,13 +47,6 @@ class CommentForum extends Component {
         <h3 className="ui dividing header">Comments</h3>
         {this.renderComments(this.props.comments)}
         <TextArea handleSubmitComment={this.handleSubmitComment} />
-        <h1>Upload Image to ASW S3</h1>
-        <input
-          id="upload-image"
-          type="file"
-          accept="image/*"
-          onChange={this.upload}
-        />
       </div>
     );
   }
