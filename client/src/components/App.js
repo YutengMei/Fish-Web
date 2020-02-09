@@ -6,7 +6,7 @@ import Header from "./Header";
 import MapShow from "./MapShow";
 import SpotForm from "./spots/SpotForm";
 import CommentForum from "./comments/CommentForum";
-import Weather from "./Weather";
+import Weather from "./weather/Weather";
 import SolunarActivity from "./SolunarActivity";
 
 class App extends Component {

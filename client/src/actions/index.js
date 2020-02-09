@@ -1,11 +1,13 @@
 import axios from "axios";
+import weather from '../API/weather';
 import {
   FETCH_USER,
   FETCH_SPOTS,
   POST_SPOT,
   FETCH_COMMENTS,
   POST_COMMENT,
-  ADD_FISHCATCH
+  ADD_FISHCATCH,
+  FETCH_WEATHER
 } from "./types";
 
 export const fetchUser = () => {
@@ -41,4 +43,20 @@ export const postComment = (comment, id) => async dispatch => {
 export const addFishcatch = id => async dispatch => {
   const res = await axios.put(`/api/fishSpots/addFishCatch//${id}`);
   dispatch({ type: ADD_FISHCATCH, payload: res.data });
+};
+
+export const fetchWeather = ( location ) => async dispatch => {
+  console.log("fetchweather called");
+  if (location.city) {
+    const response = await weather.get(`/forecast?q=${location.city}&appid=af04de9346461375834dfa120b4ed29f`);
+    // const { data } = response.data;
+    // console.log("fetchweather", response);
+    dispatch({type: FETCH_WEATHER, payload: response.data});
+  } else {
+    const response = await weather.get(`/forecast?lat=${location.lat}&lon=${location.lon}&appid=af04de9346461375834dfa120b4ed29f`);
+
+    //const data = response.data;
+    //console.log("fetchweather", data);
+    dispatch({type: FETCH_WEATHER, payload: response.data});
+  }
 };
