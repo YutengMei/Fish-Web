@@ -6,3 +6,4 @@ export const POST_COMMENT = "post_comment";
 export const ADD_FISHCATCH = "add_fishcatch";
 export const FETCH_CURRENTLOCATION = "fetch_currentLocation";
 export const FETCH_WEATHER = "FETCH_WEATHER";
+export const FETCH_SOLUNAR = "FETCH_SOLUNAR";

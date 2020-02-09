@@ -49,6 +49,10 @@ class App extends Component {
               path="/weather"
               component={Weather}
             />
+            <Route
+              path="/solunar"
+              component={SolunarActivity}
+            />
           </div>
         </BrowserRouter>
       </div>

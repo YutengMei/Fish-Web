@@ -1,5 +1,6 @@
 import axios from "axios";
 import weather from '../API/weather';
+import solunar from '../API/solunar';
 import {
   FETCH_USER,
   FETCH_SPOTS,
@@ -7,7 +8,8 @@ import {
   FETCH_COMMENTS,
   POST_COMMENT,
   ADD_FISHCATCH,
-  FETCH_WEATHER
+  FETCH_WEATHER,
+  FETCH_SOLUNAR
 } from "./types";
 
 export const fetchUser = () => {
@@ -48,7 +50,7 @@ export const addFishcatch = id => async dispatch => {
 export const fetchWeather = ( location ) => async dispatch => {
   console.log("fetchweather called");
   if (location.city) {
-    const response = await weather.get(`/forecast?q=${location.city}&appid=af04de9346461375834dfa120b4ed29f`);
+      const response = await weather.get(`/forecast?q=${location.city}&appid=af04de9346461375834dfa120b4ed29f`);
     // const { data } = response.data;
     // console.log("fetchweather", response);
     dispatch({type: FETCH_WEATHER, payload: response.data});
@@ -59,4 +61,10 @@ export const fetchWeather = ( location ) => async dispatch => {
     //console.log("fetchweather", data);
     dispatch({type: FETCH_WEATHER, payload: response.data});
   }
+};
+
+export const fetchSolunar = (lat, lon, date) => async dispatch => {
+  const response = await solunar.get(`/${lat},${lon},${date},-4`);
+  console.log(response);
+  dispatch({type: FETCH_SOLUNAR, payload: response.data});
 };
