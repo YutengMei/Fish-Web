@@ -52,7 +52,7 @@ export const postComment = (comment, id) => async dispatch => {
 };
 
 export const addFishcatch = id => async dispatch => {
-  const res = await axios.put(`/api/fishSpots/addFishCatch//${id}`);
+  const res = await axios.put(`/api/fishSpots/addFishCatch/${id}`);
   console.log(res);
   if (res.data.error) {
     dispatch({ type: ADD_FISHCATCH_FAIL, payload: res.data.error });
