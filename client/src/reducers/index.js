@@ -4,7 +4,10 @@ import spotReducer from "./spotReducer";
 import errorReducer from "./errorReducer";
 import { reducer as reduxForm } from "redux-form";
 import commentReducer from "./commentReducer";
+
 import tideReducer from "./tideReducer";
+
+import weatherReducer from "./weatherReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +15,6 @@ export default combineReducers({
   form: reduxForm,
   comments: commentReducer,
   errors: errorReducer,
-  stations: tideReducer
+  stations: tideReducer,
+  weather: weatherReducer
 });

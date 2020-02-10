@@ -5,12 +5,16 @@ import Header from "./Header";
 import MapShow from "./map/MapShow";
 import SpotForm from "./spots/SpotForm";
 import CommentForum from "./comments/CommentForum";
+
 import TidePrediction from "./tides/TidePrediction";
 import * as actions from "../actions";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+
+import Weather from "./weather/Weather";
+import SolunarActivity from "./SolunarActivity";
 
 class App extends Component {
   state = { DialogOpen: false };
@@ -69,6 +73,8 @@ class App extends Component {
                 <CommentForum spotId={match.params.spotId} />
               )}
             />
+            <Route path="/weather" component={Weather} />
+            <Route path="/solunar" component={SolunarActivity} />
           </div>
           {this.props.errors.length !== 0 && this.renderAlert()}
         </BrowserRouter>

@@ -1,4 +1,6 @@
 import axios from "axios";
+import weather from "../API/weather";
+import solunar from "../API/solunar";
 import {
   FETCH_USER,
   FETCH_SPOTS,
@@ -8,7 +10,9 @@ import {
   ADD_FISHCATCH,
   ADD_FISHCATCH_FAIL,
   REMOVE_ERROR,
-  FETCH_STATIONS
+  FETCH_STATIONS,
+  FETCH_WEATHER,
+  FETCH_SOLUNAR
 } from "./types";
 
 export const fetchUser = () => {
@@ -73,4 +77,30 @@ export const fetchStation = () => async (dispatch, getState) => {
   } else {
     return;
   }
+};
+
+export const fetchWeather = location => async dispatch => {
+  console.log("fetchweather called");
+  if (location.city) {
+    const response = await weather.get(
+      `/forecast?q=${location.city}&appid=af04de9346461375834dfa120b4ed29f`
+    );
+    // const { data } = response.data;
+    // console.log("fetchweather", response);
+    dispatch({ type: FETCH_WEATHER, payload: response.data });
+  } else {
+    const response = await weather.get(
+      `/forecast?lat=${location.lat}&lon=${location.lon}&appid=af04de9346461375834dfa120b4ed29f`
+    );
+
+    //const data = response.data;
+    //console.log("fetchweather", data);
+    dispatch({ type: FETCH_WEATHER, payload: response.data });
+  }
+};
+
+export const fetchSolunar = (lat, lon, date) => async dispatch => {
+  const response = await solunar.get(`/${lat},${lon},${date},-4`);
+  console.log(response);
+  dispatch({ type: FETCH_SOLUNAR, payload: response.data });
 };

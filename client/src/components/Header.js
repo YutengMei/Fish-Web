@@ -21,6 +21,8 @@ import PinDropIcon from "@material-ui/icons/PinDrop";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
+import CloudIcon from "@material-ui/icons/Cloud";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 
 class Header extends Component {
   state = { open: false };
@@ -140,6 +142,23 @@ class Header extends Component {
                 <TimelineIcon />
               </ListItemIcon>
               <ListItemText primary="Tide Chart" />
+            </ListItem>
+          </Link>
+
+          <Link to="/weather">
+            <ListItem button key="Weather">
+              <ListItemIcon>
+                <CloudIcon />
+              </ListItemIcon>
+              <ListItemText primary="Weather" />
+            </ListItem>
+          </Link>
+          <Link to="/solunar">
+            <ListItem button key="Solunary Activity">
+              <ListItemIcon>
+                <Brightness4Icon />
+              </ListItemIcon>
+              <ListItemText primary="Solunary Activity" />
             </ListItem>
           </Link>
 
