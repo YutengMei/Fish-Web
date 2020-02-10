@@ -5,18 +5,15 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
   InfoWindow
 } from "react-google-maps";
 import { fetchSpots } from "../../actions";
+import { addFishcatch } from "../../actions";
+
 import mapStyle from "./mapStyle";
-import InfoBox from "react-google-maps/lib/components/addons/InfoBox";
+
 import MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+
 import "./circle.css";
 import { Link } from "react-router-dom";
 
@@ -64,7 +61,12 @@ const MyMapComponent = compose(
         }}
       >
         <div className="ui buttons">
-          <div className="ui red button">
+          <div
+            className="ui red button"
+            onClick={() => {
+              props.increaseLike(props.selectedSpot._id);
+            }}
+          >
             <i className="heart icon"></i> Like
           </div>
           <div className="or"></div>
@@ -81,7 +83,7 @@ const MyMapComponent = compose(
 ));
 
 class MapShow extends Component {
-  state = { selectedSpot: null, lat: -34.397, lng: 150.644 };
+  state = { selectedSpot: null, lat: -34.397, lng: 150.644, alertOpen: false };
 
   componentDidMount() {
     this.props.fetchSpots();
@@ -89,9 +91,17 @@ class MapShow extends Component {
       this.fetchGeolocation();
     }
   }
+  alertOpen = () => {
+    this.setState({ alertOpen: true });
+  };
+  alertClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ alertOpen: false });
+  };
 
   fetchGeolocation = () => {
-    console.log("fetchGeolocation() called");
     window.navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -105,9 +115,8 @@ class MapShow extends Component {
 
   handleMarkerClick = selectedSpot => {
     this.setState({ selectedSpot: selectedSpot });
-    console.log(selectedSpot);
+
     if (selectedSpot !== null) {
-      this.props.openForum(selectedSpot._id);
       this.setState({
         lat: selectedSpot.latitude,
         lng: selectedSpot.longtitude
@@ -115,16 +124,20 @@ class MapShow extends Component {
     }
   };
 
+  handleLikeClick = id => {
+    this.props.addFishcatch(id);
+  };
+
   render() {
     return (
-      <div style={{ width: "98vw", height: "87vh" }}>
+      <div style={{ width: "100vw", height: "91vh" }}>
         <MyMapComponent
           lat={this.state.lat}
           lng={this.state.lng}
           spots={this.props.spots}
           selectedSpot={this.state.selectedSpot}
           onMarkerClick={this.handleMarkerClick}
-          openForum={this.props.openForum}
+          increaseLike={this.handleLikeClick}
         />
       </div>
     );
@@ -132,10 +145,10 @@ class MapShow extends Component {
 }
 
 function mapStateToProps(state) {
-  return { spots: state.spots };
+  return { spots: state.spots, errors: state.errors };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchSpots }
+  { fetchSpots, addFishcatch }
 )(MapShow);

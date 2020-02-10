@@ -15,7 +15,7 @@ module.exports = app => {
     res.send(comments);
   });
 
-  app.post("/api/fishSpots/:spotId", async (req, res) => {
+  app.post("/api/fishSpots/:spotId", verifyLogin, async (req, res) => {
     const { commentBody, imageUrl } = req.body;
     console.log("add comment routes called");
     var id = mongoose.Types.ObjectId(req.params.spotId);

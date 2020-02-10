@@ -7,9 +7,12 @@ export default (state = [], action) => {
     case POST_SPOT:
       return [...state, action.payload];
     case ADD_FISHCATCH:
-      return state.map(spot =>
-        spot._id === action.payload._id ? action.payload : spot
-      );
+      return state.map(spot => {
+        if (spot._id === action.payload._id) {
+          return { ...spot, fishCatched: spot.fishCatched + 1 };
+        }
+        return spot;
+      });
     default:
       return state;
   }

@@ -3,13 +3,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchComments, postComment } from "../../actions";
 import TextArea from "./TextArea";
-import axios from "axios";
+
 import _ from "lodash";
+import "./forum.css";
 
 import CommentField from "./CommentField";
 
 class CommentForum extends Component {
-  state = { message: "" };
+  state = { message: "", open: false };
 
   componentDidMount() {
     console.log("commentForum did mounth called");
@@ -25,7 +26,6 @@ class CommentForum extends Component {
 
   //avatarImgUrl, userName, date, commentImgUrl, comment
   renderComments = comments => {
-    console.log("renderComment called");
     return _.map(comments, comment => {
       return (
         <CommentField
@@ -41,10 +41,12 @@ class CommentForum extends Component {
   };
 
   render() {
-    console.log("comment forum rerender()");
     return (
-      <div className="ui comments">
-        <h3 className="ui dividing header">Comments</h3>
+      <div className="comments">
+        <div className="ui dividing header">
+          <h1 id="comment-header">Discussion Board</h1>
+          {/* <span id="comment-description">THIS FISH POST IS CREATED BY XXX</span> */}
+        </div>
         {this.renderComments(this.props.comments)}
         <TextArea handleSubmitComment={this.handleSubmitComment} />
       </div>

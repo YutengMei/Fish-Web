@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import SpotField from "./SpotField";
-import SpotFieldTextArea from "./SpotFieldTextArea";
+import SpotInputField from "./SpotInputField";
 import _ from "lodash";
 import formFields from "./formField";
 import Dialog from "@material-ui/core/Dialog";
@@ -37,7 +36,7 @@ class SpotForm extends Component {
       return (
         <Field
           key={field.name}
-          component={SpotField}
+          component={SpotInputField}
           type="text"
           label={field.label}
           name={field.name}
@@ -137,52 +136,43 @@ class SpotForm extends Component {
                 this.handleSubmitForm(values)
               )}
             >
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="flex-start"
-              >
-                <Grid item xs={12} sm={5}>
-                  <div>
-                    <Collapse in={this.state.alertOpen}>
-                      <Alert
-                        severity="error"
-                        action={
-                          <IconButton
-                            aria-label="close"
-                            color="inherit"
-                            size="small"
-                            onClick={() => {
-                              this.handleAlertClose();
-                            }}
-                          >
-                            <CloseIcon fontSize="inherit" />
-                          </IconButton>
-                        }
-                      >
-                        The address is invalid.
-                      </Alert>
-                    </Collapse>
+              <div className="ui segment">
+                <div className="ui two column very relaxed grid">
+                  <div className="column">
+                    <div>
+                      <Collapse in={this.state.alertOpen}>
+                        <Alert
+                          severity="error"
+                          action={
+                            <IconButton
+                              aria-label="close"
+                              color="inherit"
+                              size="small"
+                              onClick={() => {
+                                this.handleAlertClose();
+                              }}
+                            >
+                              <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                          }
+                        >
+                          The address is invalid.
+                        </Alert>
+                      </Collapse>
+                    </div>
+                    {this.renderField("address")}
                   </div>
-                  {this.renderField("address")}
-                </Grid>
-                <Grid direction="column" justify="center" alignItems="center">
-                  <Divider orientation="vertical" style={{ height: "130px" }} />
-                  <div>or</div>
-                  <Divider orientation="vertical" style={{ height: "130px" }} />
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                  {this.renderField("coordinate")}
-                </Grid>
-              </Grid>
-              <Field
-                key="comment"
-                component={SpotFieldTextArea}
-                type="text"
-                label="Comment"
-                name="comment"
-              />
+                  <div className="column">{this.renderField("coordinate")}</div>
+                </div>
+                <div className="ui vertical divider">OR</div>
+              </div>
+              {/* <div class="ui segment">
+                <textarea
+                  rows="4"
+                  cols="120"
+                  placeholder="Comment..."
+                ></textarea>
+              </div> */}
             </form>
           </DialogContent>
           <DialogActions>

@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
-import * as actions from "../actions";
 import { connect } from "react-redux";
 import Header from "./Header";
 import MapShow from "./map/MapShow";
 import SpotForm from "./spots/SpotForm";
 import CommentForum from "./comments/CommentForum";
+import TidePrediction from "./tides/TidePrediction";
+import * as actions from "../actions";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
 
 class App extends Component {
-  state = { DialogOpen: false, selectedSpotId: null };
+  state = { DialogOpen: false };
 
   handleDialogOpen = event => {
     this.setState({ DialogOpen: true });
@@ -18,11 +23,28 @@ class App extends Component {
     this.setState({ DialogOpen: false });
   };
 
-  //For testing purposes, need to delete later!
-  openForum = selectedSpotId => {
-    this.setState({ selectedSpotId: selectedSpotId });
-    console.log("selectedId set in App component", this.state.selectedSpotId);
+  handleAlertClose = () => {
+    this.props.removeError();
   };
+
+  renderAlert = () => {
+    return (
+      <Dialog open="true" onClose={this.handleAlertClose}>
+        <DialogContent>
+          <div>
+            <span>{this.props.errors[0]}</span>
+          </div>
+        </DialogContent>
+
+        <DialogActions>
+          <button className="ui button" onClick={this.handleAlertClose}>
+            OK
+          </button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
   componentDidMount() {
     this.props.fetchUser();
   }
@@ -37,13 +59,9 @@ class App extends Component {
               open={this.state.DialogOpen}
               onRequestClose={this.handleDialogClose}
             />
-            <Route
-              path="/fishmap"
-              exact
-              render={props => (
-                <MapShow {...props} openForum={this.openForum} />
-              )}
-            />
+            <Route path="/fishmap" exact component={MapShow} />
+            <Route path="/tideChart" exact component={TidePrediction} />
+
             <Route
               path="/fishmap/forum/:spotId"
               exact
@@ -52,13 +70,18 @@ class App extends Component {
               )}
             />
           </div>
+          {this.props.errors.length !== 0 && this.renderAlert()}
         </BrowserRouter>
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return { errors: state.errors };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   actions
 )(withRouter(App));

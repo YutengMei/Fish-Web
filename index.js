@@ -48,11 +48,10 @@ app.use(cors());
 const authRoutes = require("./routes/authRoutes");
 const spotRoutes = require("./routes/spotRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-const awsRoutes = require("./routes/awsRoutes");
+
 authRoutes(app);
 spotRoutes(app);
 commentRoutes(app);
-awsRoutes(app);
 
 // Handling different routing when the application is run in production
 if (process.env.NODE_ENV === "production") {

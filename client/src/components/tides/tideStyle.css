@@ -1,0 +1,28 @@
+.locationInputField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui.segment {
+  margin: auto;
+  width: 85%;
+  margin-top: 1%;
+}
+
+.locationButton {
+  margin-right: 2%;
+}
+
+.ui.big.icon.input {
+  margin-right: 10px;
+}
+
+.tideChart {
+  display: flex;
+  justify-content: center;
+}
+
+h1#tidechar_id {
+  text-align: center;
+}

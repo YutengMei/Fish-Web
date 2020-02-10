@@ -65,9 +65,28 @@ class Header extends Component {
   renderProfile() {
     if (!this.props.auth) {
       return (
-        <div>
-          <h1>"Motherfker"</h1>
-        </div>
+        <Grid
+          className={this.props.classes.profile}
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+        >
+          <Avatar
+            alt="defaultAvatar"
+            className={this.props.classes.large}
+            style={{ marginBottom: "9%" }}
+          ></Avatar>
+          <button class="ui google plus button">
+            <i class="google plus icon"></i>
+            <a
+              href="/auth/google"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Login with Google
+            </a>
+          </button>
+        </Grid>
       );
     }
     const userName = this.props.auth.userName;
@@ -100,7 +119,10 @@ class Header extends Component {
         {this.renderProfile()}
         <Divider />
         <List>
-          <Link to="/fishmap" style={{ textDecoration: "none" }}>
+          <Link
+            to="/fishmap"
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <ListItem button key="Find Spots">
               <ListItemIcon>
                 <NotListedLocationIcon />
@@ -109,12 +131,17 @@ class Header extends Component {
             </ListItem>
           </Link>
 
-          <ListItem button key="Tide Chart">
-            <ListItemIcon>
-              <TimelineIcon />
-            </ListItemIcon>
-            <ListItemText primary="Tide Chart" />
-          </ListItem>
+          <Link
+            to="/tideChart"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem button key="Tide Chart">
+              <ListItemIcon>
+                <TimelineIcon />
+              </ListItemIcon>
+              <ListItemText primary="Tide Chart" />
+            </ListItem>
+          </Link>
 
           <ListItem button key="Add Spot" onClick={this.props.handleDialogOpen}>
             <ListItemIcon>

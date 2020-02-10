@@ -10,21 +10,20 @@ const CommentField = props => {
     }
     return (
       <a className="ui medium image">
-        <img src={commentImgUrl} />
+        <img alt="commentImg" src={commentImgUrl} />
       </a>
     );
   };
   return (
     <div style={{ marginBottom: "5%" }}>
-      <Divider variant="middle" />
       <Grid
         container
         spacing={5}
-        style={{ padding: "5%", position: "relative" }}
+        style={{ padding: "5%", paddingTop: "2%", position: "relative" }}
       >
         <Grid
           item
-          xs={3}
+          xs={2}
           container
           direction="column"
           justify="flex-start"
@@ -36,19 +35,26 @@ const CommentField = props => {
           </div>
         </Grid>
 
-        <Grid item xs={8} container direction="column">
+        <Grid
+          item
+          xs={9}
+          container
+          direction="column"
+          style={{ marginLeft: "5%" }}
+        >
           {imageField(props.commentImgUrl)}
           <div class="text">{props.comment}</div>
         </Grid>
         <div
           class="metadata"
-          style={{ position: "absolute", bottom: 0, right: "36px" }}
+          style={{ position: "absolute", bottom: "23px", right: "36px" }}
         >
           <span className="date" style={{ opacity: "0.4", fontSize: ".875em" }}>
             {new Date(props.date).toLocaleDateString()}
           </span>
         </div>
       </Grid>
+      <Divider variant="middle" />
     </div>
   );
 };
