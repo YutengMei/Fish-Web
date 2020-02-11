@@ -8,6 +8,7 @@ import commentReducer from "./commentReducer";
 import tideReducer from "./tideReducer";
 
 import weatherReducer from "./weatherReducer";
+import solunarReducer from "./solunarReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   comments: commentReducer,
   errors: errorReducer,
   stations: tideReducer,
-  weather: weatherReducer
+  weather: weatherReducer,
+  solunar: solunarReducer
 });

@@ -38,7 +38,7 @@ class TidePrediction extends Component {
       const tideLevel = tideData.data.predictions.map(data => {
         return parseFloat(data.v);
       });
-
+      console.log("tideData", tideData);
       const time = tideData.data.predictions.map(data => {
         return data.t;
       });
@@ -62,6 +62,7 @@ class TidePrediction extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <div className="ui segment">
         <h1 id="tidechar_id">

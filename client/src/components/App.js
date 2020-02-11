@@ -14,7 +14,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 
 import Weather from "./weather/Weather";
-import SolunarActivity from "./SolunarActivity";
+import SolunarActivity from "./solunar/SolunarActivity";
 
 class App extends Component {
   state = { DialogOpen: false };

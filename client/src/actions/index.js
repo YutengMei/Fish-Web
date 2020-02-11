@@ -83,14 +83,14 @@ export const fetchWeather = location => async dispatch => {
   console.log("fetchweather called");
   if (location.city) {
     const response = await weather.get(
-      `/forecast?q=${location.city}&appid=af04de9346461375834dfa120b4ed29f`
+      `/forecast?q=${location.city}&appid=${process.env.REACT_APP_OPENWEATHERMAP}`
     );
     // const { data } = response.data;
     // console.log("fetchweather", response);
     dispatch({ type: FETCH_WEATHER, payload: response.data });
   } else {
     const response = await weather.get(
-      `/forecast?lat=${location.lat}&lon=${location.lon}&appid=af04de9346461375834dfa120b4ed29f`
+      `/forecast?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}`
     );
 
     //const data = response.data;
