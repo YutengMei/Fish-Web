@@ -77,6 +77,7 @@ class TidePrediction extends Component {
         <TideChart
           tideLevel={this.state.tideData.tideLevel}
           time={this.state.tideData.time}
+          name="Tide Level"
         />
       </div>
     );

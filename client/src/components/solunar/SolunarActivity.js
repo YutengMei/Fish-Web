@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSolunar } from '../../actions';
-import LocationInput from './LocationInput';
+import LocationInput from '../tides/LocationInput';
 import { Alert } from "@material-ui/lab";
 import {
   validateLatitudeAndLongitude
-} from "./solunarHelper";
-import SolunarChart from "./SolunarChart";
+} from "../tides/tideApiHelper";
+import TideChart from "../tides/TideChart";
 
 class SolunarActivity extends React.Component {
   state = {
@@ -100,9 +100,10 @@ class SolunarActivity extends React.Component {
             Please enter the valid coordinates
           </Alert>
         )}
-        <SolunarChart
-          solunarRating={this.state.solunarData.solunarRating}
+        <TideChart
+          tideLevel={this.state.solunarData.solunarRating}
           time={this.state.solunarData.time}
+          name="Solunar Hourly Rating"
         />
       </div>
     );

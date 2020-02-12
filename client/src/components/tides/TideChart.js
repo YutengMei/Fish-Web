@@ -5,7 +5,7 @@ class TideChart extends Component {
   generateSeries = () => {
     return [
       {
-        name: "Tide Level",
+        name: this.props.name,
         data: this.props.tideLevel
       }
     ];
