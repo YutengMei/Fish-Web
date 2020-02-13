@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Spot = mongoose.model("spots");
 const User = mongoose.model("User");
 const verifyLogin = require("../middlewares/verifyLogin");
+const { isPointWithinRadius } = require("geolib");
 
 module.exports = app => {
   app.get("/api/fishSpots", async (req, res) => {
@@ -11,6 +12,23 @@ module.exports = app => {
 
   app.post("/api/fishSpots", verifyLogin, async (req, res) => {
     const { latitude, longtitude } = req.body;
+    const spots = await Spot.find({});
+    const fromLat = parseFloat(latitude);
+    const fromLon = parseFloat(longtitude);
+    for (var i = 0; i < spots.length; i++) {
+      var lat = parseFloat(spots[i].latitude);
+      var lon = parseFloat(spots[i].longtitude);
+      if (
+        isPointWithinRadius(
+          { latitude: lat, longitude: lon },
+          { latitude: fromLat, longitude: fromLon },
+          1000
+        )
+      ) {
+        res.status(200).json({ error: "There is a spot within 1km radius" });
+        return;
+      }
+    }
     const spot = await new Spot({
       latitude: latitude,
       longtitude: longtitude,

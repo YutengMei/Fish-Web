@@ -12,6 +12,7 @@ import * as actions from "../actions";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import Button from "@material-ui/core/Button";
 
 import Weather from "./weather/Weather";
 import SolunarActivity from "./SolunarActivity";
@@ -41,9 +42,9 @@ class App extends Component {
         </DialogContent>
 
         <DialogActions>
-          <button className="ui button" onClick={this.handleAlertClose}>
+          <Button onClick={this.handleAlertClose} color="primary">
             OK
-          </button>
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -63,7 +64,7 @@ class App extends Component {
               open={this.state.DialogOpen}
               onRequestClose={this.handleDialogClose}
             />
-            <Route path="/fishmap" exact component={MapShow} />
+            <Route path="/" exact component={MapShow} />
             <Route path="/tideChart" exact component={TidePrediction} />
 
             <Route

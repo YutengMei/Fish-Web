@@ -121,10 +121,7 @@ class Header extends Component {
         {this.renderProfile()}
         <Divider />
         <List>
-          <Link
-            to="/fishmap"
-            style={{ textDecoration: "none", color: "black" }}
-          >
+          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
             <ListItem button key="Find Spots">
               <ListItemIcon>
                 <NotListedLocationIcon />
@@ -186,14 +183,20 @@ class Header extends Component {
               className={this.props.classes.menuButton}
               onClick={this.toggleDrawer(true)}
             >
-              <MenuIcon />
+              <MenuIcon fontSize="large" />
             </IconButton>
             <Typography
               component="h1"
               variant="h6"
               className={this.props.classes.title}
             >
-              Fish
+              <Link to="/">
+                <span
+                  style={{ fontWeight: 900, color: "#fff", fontSize: "28px" }}
+                >
+                  Anemone
+                </span>
+              </Link>
             </Typography>
             <Button color="inherit">{this.renderContent()}</Button>
           </Toolbar>
