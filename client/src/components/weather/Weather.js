@@ -11,11 +11,17 @@ class Weather extends React.Component {
     this.fetchGeolocation();
   }
 
+  fetchWeather = location => {
+    //this.props.fetchCurrentWeather(location);
+    this.props.fetchWeather(location);
+  };
+
   onLocationSubmit = (city) => {
     const location = {};
     location.city = city;
-    console.log(location);
-    this.props.fetchWeather(location);
+    this.fetchWeather(location);
+    // this.props.fetchCurrentWeather(location);
+    // this.props.fetchWeather(location);
     //console.log("props",this.props);
   }
 
@@ -27,7 +33,9 @@ class Weather extends React.Component {
         const location = {};
         location.lat = position.coords.latitude;
         location.lon = position.coords.longitude;
-        this.props.fetchWeather(location);
+        this.fetchWeather(location);
+        // this.props.fetchCurrentWeather(location);
+        // this.props.fetchWeather(location);
         //console.log("props", this.props);
       },
       err => {}
@@ -39,7 +47,7 @@ class Weather extends React.Component {
     return (
       <div className="ui container">
         <SearchBar onFormSubmit={this.onLocationSubmit}/>
-        <WeatherList weather={this.props.weather} />
+        <WeatherList weather={this.props.weather} currentWeather={this.props.currentWeather}/>
       </div>
     );
   }

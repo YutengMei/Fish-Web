@@ -12,3 +12,4 @@ export const FETCH_STATIONS = "fetch_stations";
 export const FETCH_CURRENTLOCATION = "fetch_currentLocation";
 export const FETCH_WEATHER = "FETCH_WEATHER";
 export const FETCH_SOLUNAR = "FETCH_SOLUNAR";
+export const FETCH_CURRENT_WEATHER = "FETCH_CURRENT_WEATHER";

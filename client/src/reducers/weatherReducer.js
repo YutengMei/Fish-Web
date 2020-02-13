@@ -1,4 +1,4 @@
-import { FETCH_WEATHER } from "../actions/types";
+import { FETCH_WEATHER, FETCH_CURRENT_WEATHER } from "../actions/types";
 
 export default function(state = null, action) {
   switch (action.type) {
