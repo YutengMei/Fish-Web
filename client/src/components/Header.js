@@ -192,7 +192,7 @@ class Header extends Component {
             >
               <Link to="/">
                 <span
-                  style={{ fontWeight: 900, color: "#fff", fontSize: "28px" }}
+                  style={{ fontWeight: 400, color: "#fff", fontSize: "28px" }}
                 >
                   Anemone
                 </span>
