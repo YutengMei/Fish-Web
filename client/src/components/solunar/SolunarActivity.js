@@ -45,10 +45,7 @@ class SolunarActivity extends React.Component {
     );
   };
 
-  generateChart = location => {
-    const lat = parseFloat(location.Latitude);
-    const lon = parseFloat(location.Longitude);
-    const today = this.fetchDate();
+  generateChartHelper = (lat, lon, today) => {
     if (!validateLatitudeAndLongitude(lat, lon)) {
       this.setState({ error: true });
       return;
@@ -56,13 +53,45 @@ class SolunarActivity extends React.Component {
       this.setState({ error: false });
       console.log("solunar",this.props);
       this.props.fetchSolunar(lat, lon, today);
-      // const time = this.props.solunar.hourlyRating.map(data => {
-      //   return 0;
-      // });
-      // const data = { tideLevel: tideLevel, time: time };
-      // this.setState({ tideData: data });
       this.updateChartState();
-      //console.log("hrlyrating",this.props.solunar);
+    }
+  };
+
+  noLocationSubmitHandler = (date) => {
+    window.navigator.geolocation.getCurrentPosition(
+      async position => {
+        console.log("GOT CURRENT LOCATION", date);
+        const location = {};
+        location.lat = position.coords.latitude;
+        location.lon = position.coords.longitude;
+        await this.props.fetchSolunar(location.lat, location.lon, date);
+        //console.log("props", this.props);
+        //console.log("hrlyrating",this.props);
+        this.updateChartState();
+      },
+      err => {}
+    );
+  }
+
+  generateChart = (location, date) => {
+    console.log("genearte cahrt", location)
+    const lat = parseFloat(location.Latitude);
+    const lon = parseFloat(location.Longitude);
+    if (!date) {
+      if (!location.Latitude) {
+        this.fetchGeolocation();
+      } else {
+        const today = this.fetchDate();
+        this.generateChartHelper(lat, lon, today);
+      }
+    } else {
+      if (!location.Latitude) {
+        this.noLocationSubmitHandler(date)
+      }
+      else{
+        const today = date;
+        this.generateChartHelper(lat, lon, today);
+      }
     }
   };
 
@@ -89,12 +118,13 @@ class SolunarActivity extends React.Component {
   }
 
   render(){
+    const button = true;
     return (
       <div className="ui segment">
         <h1 id="tidechar_id">
           Enter the Geographic Coordinate to generate the Solunar Times
         </h1>
-        <LocationInput generateChart={this.generateChart}/>
+        <LocationInput button={true} pre={true} next={true} generateChart={this.generateChart} fetchDate={this.fetchDate}/>
         {this.state.error && (
           <Alert severity="error" style={{ width: "50%", marginLeft: "18%" }}>
             Please enter the valid coordinates
