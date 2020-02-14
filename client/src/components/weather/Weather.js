@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import SearchBar from './SearchBar';
 import { fetchWeather } from '../../actions';
+import { Container } from "@material-ui/core";
 import WeatherList from './WeatherList';
 
 class Weather extends React.Component {
@@ -47,7 +48,9 @@ class Weather extends React.Component {
     return (
       <div className="ui container">
         <SearchBar onFormSubmit={this.onLocationSubmit}/>
-        <WeatherList weather={this.props.weather} currentWeather={this.props.currentWeather}/>
+        <Container>
+          <WeatherList weather={this.props.weather} currentWeather={this.props.currentWeather}/>
+        </Container>
       </div>
     );
   }

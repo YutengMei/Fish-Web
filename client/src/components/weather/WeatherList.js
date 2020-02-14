@@ -74,6 +74,7 @@ const WeatherList = ({weather}) => {
   const prefix = "wi wi-";
   const icon =
       prefix + weatherIcons.default[weather.currentWeather.data.weather[0].id].icon;
+  console.log("icon",icon);
   return (
    <div className={classes.layout}>
      <Grid container spacing={3}>
