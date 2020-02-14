@@ -11,14 +11,12 @@ import {
 } from "@material-ui/core";
 import LoadingSpinner from "./LoadingSpinner";
 import * as weatherIcons from "./icons";
+import WeatherItem from "./WeatherItem";
 
 const useStyles = makeStyles(theme => ({
   atmospheric: {
     fontSize: "28px",
     padding: "5px"
-  },
-  buttons: {
-    color: "black"
   },
   card: {
     minWidth: 600,
@@ -27,35 +25,6 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
     flexWrap: "wrap"
-  },
-  error: {
-    color: "red",
-    padding: "10px"
-  },
-  fullList: {
-    width: "auto"
-  },
-  layout: {
-    marginTop: "20px"
-  },
-
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary
-  },
-  recommendation: {
-    fontFamily: "Montserrat, sans-serif",
-    padding: "20px 0px 10px 0px",
-    fontSize: "26px",
-    textAlign: "center"
-  },
-  root: {
-    flexiGrow: 1,
-    color: "black"
-  },
-  search: {
-    marginTop: "100px"
   },
   wi: {
     color: "#673ab7"
@@ -74,7 +43,7 @@ const WeatherList = ({weather}) => {
   const prefix = "wi wi-";
   const icon =
       prefix + weatherIcons.default[weather.currentWeather.data.weather[0].id].icon;
-  console.log("icon",icon);
+  console.log("icon111",icon);
   return (
    <div className={classes.layout}>
      <Grid container spacing={3}>
@@ -133,7 +102,7 @@ const WeatherList = ({weather}) => {
            {props.currentWeather.data.main.humidity}% Humidity
          </Typography>
          <Divider variant="middle" />
-
+         <WeatherItem forecast={props.forecast} />
        </CardContent>
      </Card>
    );
