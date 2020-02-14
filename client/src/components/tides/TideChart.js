@@ -12,6 +12,9 @@ class TideChart extends Component {
   };
 
   generateOptions = () => {
+    const time = this.props.time.map(timeStamp => {
+      return timeStamp.split(" ").join("T") + ":00.000Z";
+    });
     return {
       chart: {
         height: 350,
@@ -25,11 +28,11 @@ class TideChart extends Component {
       },
       xaxis: {
         type: "datetime",
-        categories: this.props.time
+        categories: time
       },
       tooltip: {
         x: {
-          format: "yyyy-mm-dd HH:mm"
+          format: "dd/MM/yy HH:mm"
         }
       }
     };
