@@ -129,5 +129,5 @@ export const fetchWeather = location => async dispatch => {
 export const fetchSolunar = (lat, lon, date) => async dispatch => {
   const response = await solunar.get(`/${lat},${lon},${date},-4`);
   console.log(response);
-  dispatch({ type: FETCH_SOLUNAR, payload: response.data });
+  dispatch({ type: FETCH_SOLUNAR, payload: { solunarData: response.data, date:date} });
 };

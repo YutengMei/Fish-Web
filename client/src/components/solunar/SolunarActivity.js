@@ -96,8 +96,10 @@ class SolunarActivity extends React.Component {
   };
 
   updateChartState = () => {
-    const hourlyRating = this.props.solunar.hourlyRating;
-    console.log("hrlyrating",hourlyRating);
+    const hourlyRating = this.props.solunar.solunarData.hourlyRating;
+    console.log("hrlyrating",this.props.solunar.date);
+    const date = `${this.props.solunar.date}`;
+    console.log("hrlyrating", date.slice(0,4),date.slice(4,6),date.slice(6,9));
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -107,9 +109,9 @@ class SolunarActivity extends React.Component {
     });
     const time = Object.keys(hourlyRating).map(function(key, index) {
       if (key < 10) {
-        return yyyy + '-' + mm + '-' + dd + ' 0' + key + ':00';
+        return date.slice(0,4) + '-' + date.slice(4,6) + '-' + date.slice(6,9) + ' 0' + key + ':00';
       } else {
-        return yyyy + '-' + mm + '-' + dd + ' ' + key + ':00';
+        return date.slice(0,4) + '-' + date.slice(4,6) + '-' + date.slice(6,9) + ' ' + key + ':00';
       };
     });
     const data = { solunarRating: solunarRating, time: time };
@@ -140,8 +142,9 @@ class SolunarActivity extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { solunar: state.solunar };
+function mapStateToProps({solunar}) {
+  console.log("mapStateToProps",solunar);
+  return { solunar: solunar };
 }
 
 export default connect(mapStateToProps, { fetchSolunar })(SolunarActivity);
