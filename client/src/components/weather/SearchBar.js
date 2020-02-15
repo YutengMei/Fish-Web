@@ -14,13 +14,15 @@ class SearchBar extends React.Component{
 
   render(){
     return (
-      <div className="search-bar ui segment">
-        <form className="ui form" onSubmit={this.onFormSbumit}>
-          <div className="field">
-            <label>Enter a City</label>
-            <input type="text" value={this.state.term} onChange={this.onInputChange}  />
+      <div className="ui segment">
+        <div className="locationInputField">
+          <div className="ui huge action input">
+            <input type="text" placeholder="Enter a City to Search..." value={this.state.term} onChange={this.onInputChange} onSubmit={this.onFormSbumit}/>
+            <button className="ui blue icon button"><i aria-hidden="true" class="search icon" onClick={this.onFormSbumit}></i></button>
+              &nbsp;
+            <button className="big ui blue button" onClick={this.onFormSbumit}>&deg;C/&deg;F</button>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
