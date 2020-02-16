@@ -7,6 +7,7 @@ import {
   validateLatitudeAndLongitude
 } from "../tides/tideApiHelper";
 import TideChart from "../tides/TideChart";
+import DisplayPeriods from "./DisplayPeriods";
 
 class SolunarActivity extends React.Component {
   state = {
@@ -97,9 +98,7 @@ class SolunarActivity extends React.Component {
 
   updateChartState = () => {
     const hourlyRating = this.props.solunar.solunarData.hourlyRating;
-    console.log("hrlyrating",this.props.solunar.date);
     const date = `${this.props.solunar.date}`;
-    console.log("hrlyrating", date.slice(0,4),date.slice(4,6),date.slice(6,9));
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -119,6 +118,12 @@ class SolunarActivity extends React.Component {
     console.log("solunarRating",solunarRating, time, this.state);
   }
 
+  displayPeriods () {
+    if (this.props.solunar) {
+      return <DisplayPeriods solunar={this.props.solunar} />;
+    }
+  }
+
   render(){
     const button = true;
     return (
@@ -132,6 +137,7 @@ class SolunarActivity extends React.Component {
             Please enter the valid coordinates
           </Alert>
         )}
+        {this.displayPeriods()}
         <TideChart
           tideLevel={this.state.solunarData.solunarRating}
           time={this.state.solunarData.time}
