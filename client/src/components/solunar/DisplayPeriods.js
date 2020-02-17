@@ -1,10 +1,11 @@
 import React from 'react';
 
 const DisplayPeriods = ({ solunar }) => {
-  //console.log("DisplayPeriods", solunar)
-  let date = (solunar) ? solunar.date.slice(0,4) + '-' + solunar.date.slice(4,6) + '-' + solunar.date.slice(6,9) : '';
+  console.log("DisplayPeriods", solunar)
+  let date = `${solunar.date}`;
+  date = (solunar) ? date.slice(0,4) + '-' + date.slice(4,6) + '-' + date.slice(6,9) : '';
   //const date = solunar.date.slice(0,4) + '-' + solunar.date.slice(4,6) + '-' + solunar.date.slice(6,9);
-  console.log("DisplayPeriods", solunar);
+  //console.log("DisplayPeriods", solunar);
   return (
     <table class="ui celled table">
   <thead>
