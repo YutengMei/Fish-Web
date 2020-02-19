@@ -100,7 +100,7 @@ export const fetchWeather = location => async dispatch => {
     const responseCurrent = await weather.get(
       `/weather?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
     );
-    const responseDarkSky = await darksky.get(`/${process.env.REACT_APP_DARK_SKY}/${location.lat},${location.lon}`);
+    //const responseDarkSky = await darksky.get(`/${process.env.REACT_APP_DARK_SKY}/${location.lat},${location.lon}`);
     //console.log("darksky",responseDarkSky);
     //const data = response.data;
     //console.log("fetchweather", data);
