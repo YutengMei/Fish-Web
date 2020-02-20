@@ -5,8 +5,14 @@ The web app can be accessed through this URL:
 https://powerful-mountain-11672.herokuapp.com
 
 ## Features
+### User authentication
+![login_github](https://user-images.githubusercontent.com/40074354/74794943-95ca7e00-5292-11ea-9285-03305c40e847.png)
+![login_log_gihub](https://user-images.githubusercontent.com/40074354/74794960-9bc05f00-5292-11ea-82e6-fa3e724525a4.png)\
+Users can log in to the web app with their Google account. After users logged in, they can use different social networking features, such as sharing their favorite fishing spots or pictures of the catches to other anglers. 
+
+
 ### Map
-![map_github](https://user-images.githubusercontent.com/40074354/74791291-133cc100-5288-11ea-9cd6-07d8b8581248.png)
+![map_github](https://user-images.githubusercontent.com/40074354/74795192-489adc00-5293-11ea-89b7-061aa5eb2d91.png)
 Fishing is all about location. Thus, a map is an essential component of anglers. This map component contains different fishing spots for anglers to explore. When clicked on a fishing spot, anglers can give it a thumb up by clicking the like button, or they can click on the discuss button, which leads them to the discussion board of this specific fishing spot. 
 
 
