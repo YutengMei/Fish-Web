@@ -17,9 +17,10 @@ class Weather extends React.Component {
     this.props.fetchWeather(location);
   };
 
-  onLocationSubmit = (city) => {
+  onLocationSubmit = (locate) => {
     const location = {};
-    location.city = city;
+    location.lat = locate.latitude;
+    location.lon = locate.longtitude;
     this.fetchWeather(location);
     // this.props.fetchCurrentWeather(location);
     // this.props.fetchWeather(location);

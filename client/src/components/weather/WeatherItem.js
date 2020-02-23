@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DisplayForecast = (props) => {
-  console.log("displayForecast", props)
+  //console.log("displayForecast", props)
 
   return (
     <List >
@@ -67,7 +67,7 @@ const WeatherItem = (props) => {
       const prefix = "wi wi-";
       const icon =
           prefix + weatherIcons.default[forecast.weather[0].id].icon;
-      console.log("icon",icon, forecast);
+      //console.log("icon",icon, forecast);
       return <div key={key}><DisplayForecast forecast={forecast} icon={icon} classes={classes} /></div>;
     })
   );
