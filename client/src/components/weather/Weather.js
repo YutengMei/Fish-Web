@@ -45,7 +45,7 @@ class Weather extends React.Component {
   };
 
   render() {
-    console.log("props", this.props);
+    console.log("weather main props", this.props);
     return (
       <div className="ui container">
         <SearchBar onFormSubmit={this.onLocationSubmit}/>

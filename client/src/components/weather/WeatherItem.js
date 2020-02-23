@@ -23,19 +23,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DisplayForecast = (props) => {
-  //console.log("displayForecast", props)
+  console.log("displayForecast", props);
 
   return (
     <List >
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <span
-            className={` ${props.icon}`}
-            style={{ fontSize: "24px" }}
-          ></span>
+          <span>
+            <img
+              className={` ${props.icon}`}
+              style={{ fontSize: "24px" }}
+              src={props.icon}
+            ></img>
+          </span>
         </ListItemAvatar>
         <ListItemText
-          primary={`${props.forecast.dt_txt}`}
+          primary={`${props.forecast.startTime}`}
           secondary={
             <React.Fragment>
               <Typography
@@ -43,11 +46,11 @@ const DisplayForecast = (props) => {
                 variant="body2"
                 color="textPrimary"
               >
-                {Math.round(props.forecast.main.temp)}&deg;C{"   "}
+                {Math.round(props.forecast.temperature)}&deg;F{"   "}
               </Typography>
-              {props.forecast.wind.speed} km/h Winds{" "}
-              {props.forecast.main.humidity}% Humidity
-
+              {props.forecast.windSpeed} km/h Winds{" "}
+              {//props.forecast.main.humidity}% Humidity
+              }
             </React.Fragment>
           }
         />
@@ -62,13 +65,11 @@ const WeatherItem = (props) => {
 
   console.log("weather item props", props);
   return (
-    props.forecast.list.map((forecast, key) => {
-      //console.log("map", forecast.weather[0].id, key);
-      const prefix = "wi wi-";
-      const icon =
-          prefix + weatherIcons.default[forecast.weather[0].id].icon;
-      //console.log("icon",icon, forecast);
-      return <div key={key}><DisplayForecast forecast={forecast} icon={icon} classes={classes} /></div>;
+    props.forecast.data.properties.periods.map((forecast, key) => {
+      // const prefix = "wi wi-";
+      // const icon =
+      //     prefix + weatherIcons.default[forecast.weather[0].id].icon;
+      return <div key={key}><DisplayForecast forecast={forecast} icon={forecast.icon} classes={classes} /></div>;
     })
   );
 };

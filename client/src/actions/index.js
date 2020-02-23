@@ -106,7 +106,7 @@ export const fetchWeather = location => async dispatch => {
   console.log("darksky",responseHour, responseForecast);
   //const data = response.data;
   //console.log("fetchweather", data);
-  dispatch({ type: FETCH_WEATHER, payload: {forecast: response.data, currentWeather: responseCurrent} });
+  dispatch({ type: FETCH_WEATHER, payload: {forecast: responseForecast, currentWeather: responseCurrent, forecastHourly: responseHour} });
   //}
 };
 
