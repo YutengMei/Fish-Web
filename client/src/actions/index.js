@@ -83,50 +83,34 @@ export const fetchStation = () => async (dispatch, getState) => {
 
 export const fetchWeather = location => async dispatch => {
   console.log("fetchweather called");
-  if (location.city) {
-    const response = await weather.get(
-      `/forecast?q=${location.city}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
-    );
-    const responseCurrent = await weather.get(
-      `/weather?q=${location.city}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
-    );
-    // const { data } = response.data;
-    // console.log("fetchweather", response);
-    dispatch({ type: FETCH_WEATHER, payload: {forecast: response.data, currentWeather: responseCurrent} });
-  } else {
-    const response = await weather.get(
-      `/forecast?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
-    );
-    const responseCurrent = await weather.get(
-      `/weather?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
-    );
-    const responseDarkSky = await darksky.get(`/${location.lat},${location.lon}`);
-    console.log("darksky",responseDarkSky);
-    //const data = response.data;
-    //console.log("fetchweather", data);
-    dispatch({ type: FETCH_WEATHER, payload: {forecast: response.data, currentWeather: responseCurrent} });
-  }
+  // if (location.city) {
+  //   const response = await weather.get(
+  //     `/forecast?q=${location.city}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
+  //   );
+  //   const responseCurrent = await weather.get(
+  //     `/weather?q=${location.city}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
+  //   );
+  //   // const { data } = response.data;
+  //   // console.log("fetchweather", response);
+  //   dispatch({ type: FETCH_WEATHER, payload: {forecast: response.data, currentWeather: responseCurrent} });
+  // } else {
+  const response = await weather.get(
+    `/forecast?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
+  );
+  const responseCurrent = await weather.get(
+    `/weather?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
+  );
+  const responseDarkSky = await darksky.get(`/${location.lat},${location.lon}`);
+  const responseHour = await axios.get( responseDarkSky.data.properties.forecastHourly );
+  const responseForecast = await axios.get( responseDarkSky.data.properties.forecast );
+  console.log("darksky",responseHour, responseForecast);
+  //const data = response.data;
+  //console.log("fetchweather", data);
+  dispatch({ type: FETCH_WEATHER, payload: {forecast: response.data, currentWeather: responseCurrent} });
+  //}
 };
 
-// export const fetchCurrentWeather = location => async dispatch => {
-//   console.log("fetchweather called");
-//   if (location.city) {
-//     const response = await weather.get(
-//       `/weather?q=${location.city}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
-//     );
-//     // const { data } = response.data;
-//     // console.log("fetchweather", response);
-//     dispatch({ type: FETCH_CURRENT_WEATHER, payload: response.data });
-//   } else {
-//     const response = await weather.get(
-//       `/weather?lat=${location.lat}&lon=${location.lon}&appid=${process.env.REACT_APP_OPENWEATHERMAP}&units=metric`
-//     );
-//
-//     //const data = response.data;
-//     //console.log("fetchweather", data);
-//     dispatch({ type: FETCH_CURRENT_WEATHER, payload: response.data });
-//   }
-// };
+
 
 export const fetchSolunar = (lat, lon, date) => async dispatch => {
   const response = await solunar.get(`/${lat},${lon},${date},-4`);
